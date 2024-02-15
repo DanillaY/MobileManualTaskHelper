@@ -10,9 +10,9 @@ const NavStack = createNativeStackNavigator<AuthStackParamLIst>()
 const AuthStackNavigator = () => {
 	return(
 		<NavStack.Navigator>
-			<NavStack.Screen name="Welcome" component={WelcomeScreen}/>
-			<NavStack.Screen name="SignIn" component={SignInScreen}/>
-			<NavStack.Screen name="SignUp" component={SignUpScreen}/>
+			<NavStack.Screen options={{headerShown: false}} name="Welcome" component={WelcomeScreen}/>
+			<NavStack.Screen options={{headerShown: false}} name="SignIn" component={SignInScreen}/>
+			<NavStack.Screen options={{headerShown: false}} name="SignUp" component={SignUpScreen}/>
 		</NavStack.Navigator>
 	)
 }

@@ -5,11 +5,17 @@ import { textVariants } from "./text";
 const theme = createTheme({
 	colors: colors,
 	spacing: {
+		"0.5":12,
 		"1":16,
 		"2":20,
 		"3":24,
 		"4":28,
 		"5":32,
+		"6":36,
+		"7":40,
+		"8":44,
+		"9":48,
+		"10":52,
 	},
 	borderRadii: {
 		none: 0,

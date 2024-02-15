@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet } from 'react-native';
 import { ThemeProvider } from '@shopify/restyle';
-import theme, { Text } from './src/components/theme';
+import theme from './src/components/theme';
 import Navigation from './src/navigation';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
