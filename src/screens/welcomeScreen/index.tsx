@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Box, Text } from "../../components/theme"
 import { Image } from "react-native"
 import { useNavigation } from "@react-navigation/native"
@@ -12,8 +12,10 @@ const WelcomeScreen = () => {
 	const navigatoToSignIn = () => {
 		navigation.navigate("SignIn")
 	}
+	const [value, setValue] = useState()
 	const navigatoToSignUp = () => {
 		navigation.navigate("SignUp")
+	
 	}
 	return(
 		<SafeAreaWrapper>
@@ -26,7 +28,6 @@ const WelcomeScreen = () => {
 				<Box marginTop="2" marginHorizontal="5">
 					<Button label="Оптимизировать свою жизнь" onPress={navigatoToSignUp}/>
 				</Box>
-				
 			</Box>
 		</SafeAreaWrapper>
 	)

@@ -15,5 +15,3 @@ const SafeAreaWrapper = ({children} : SafeAreaWrapperProps) => {
 }
 
 export default SafeAreaWrapper
-
-const styles = StyleSheet.create({})

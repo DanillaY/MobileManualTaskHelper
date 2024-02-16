@@ -7,6 +7,8 @@ import SafeAreaWrapper from '../../components/safeArea'
 import Input from 'src/components/input'
 import Button from 'src/components/button'
 import { Pressable } from 'react-native'
+import Dropdown from 'src/components/dropdown'
+import PhoneInput from 'src/components/phoneInput'
 
 const SignUpScreen = () => {
 	const navigation = useNavigation<AuthScreenNavType<"SignUp">>()
@@ -21,8 +23,15 @@ const SignUpScreen = () => {
 				<Text variant='text20' fontWeight='700' marginBottom='5'>Зарегистрироваться</Text>
 				<Input label='Email'></Input>
 				<Box marginBottom='5'/>
-					<Input label='Password'></Input>
+					<Input label='Password' shouldBeHidden={true}></Input>
+				<Box marginBottom='5'/>
+
+				<PhoneInput label='Phone'/>
+				<Box marginBottom='5'/>
+
+				<Dropdown label='Gender' data={[{key:"1",value:"Мужской"},{key:"2",value:"Женский"},{key:"3",value:"Другое"}]}/>
 				<Box marginBottom='2'/>
+				
 				<Pressable onPress={navigatoToSignIn}>
 					<Text textAlign='right' paddingRight='1' color='primary_dark'>Уже есть аккаунт?</Text>
 				</Pressable>

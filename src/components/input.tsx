@@ -5,13 +5,14 @@ import theme, { Box, Text } from './theme'
 type InputProps = {
 	label : string
 	error?: undefined
+	shouldBeHidden?: boolean
 } & TextInputProps
 
-const Input = ({label,error}:InputProps) => {
+const Input = ({label,shouldBeHidden,error}:InputProps) => {
   return (
 	<Box flexDirection='column'>
 	  <Text variant='text16' fontWeight='600' marginBottom='0.5'>{label}</Text>
-	  <TextInput style={
+	  <TextInput secureTextEntry={shouldBeHidden ? true : false} style={
 		{
 			paddingVertical:13,
 			borderWidth: 2,
@@ -27,5 +28,3 @@ const Input = ({label,error}:InputProps) => {
 }
 
 export default Input
-
-const styles = StyleSheet.create({})
