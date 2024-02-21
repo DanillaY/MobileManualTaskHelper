@@ -10,7 +10,8 @@ type InputProps = {
 
 const PhoneInput = ({label,error}:InputProps) => {
 
-	const {phone, code , onChangeCode, onChangePhone} = usePhoneStore((state) => state)
+	const onChangeCode = usePhoneStore((state) => state.onChangeCode)
+	const onChangePhone = usePhoneStore((state) => state.onChangePhone)
 
   return (
 	<Box flexDirection='column'>

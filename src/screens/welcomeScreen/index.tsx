@@ -2,21 +2,14 @@ import React, { useState } from "react"
 import { Box, Text } from "../../components/theme"
 import { Image } from "react-native"
 import { useNavigation } from "@react-navigation/native"
-import { AuthScreenNavType } from "../../navigation/types"
 import SafeAreaWrapper from "../../components/safeArea"
 import Button from "src/components/button"
+import { WelcomeNavigationType } from "src/navigation/types"
 
 const WelcomeScreen = () => {
 
-	const navigation = useNavigation<AuthScreenNavType<"Welcome">>()
-	const navigatoToSignIn = () => {
-		navigation.navigate("SignIn")
-	}
-	const [value, setValue] = useState()
-	const navigatoToSignUp = () => {
-		navigation.navigate("SignUp")
-	
-	}
+	const navigation = useNavigation<WelcomeNavigationType<"AuthStackScreen">>()
+
 	return(
 		<SafeAreaWrapper>
 			<Box backgroundColor ="secondary_light" flex={1}>
@@ -26,7 +19,7 @@ const WelcomeScreen = () => {
 				<Text variant="text24" fontWeight="700" textAlign="center">Manual Task Helper</Text>
 				<Text variant="text20" fontWeight="500" textAlign="center">Ваш помощник в повседневных задачах</Text>
 				<Box marginTop="2" marginHorizontal="5">
-					<Button label="Оптимизировать свою жизнь" onPress={navigatoToSignUp}/>
+					<Button label="Оптимизировать свою жизнь" onPress={() => navigation.navigate("AuthSignUpScreen")}/>
 				</Box>
 			</Box>
 		</SafeAreaWrapper>

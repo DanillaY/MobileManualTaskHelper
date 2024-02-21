@@ -5,6 +5,7 @@ import { textVariants } from "./text";
 const theme = createTheme({
 	colors: colors,
 	spacing: {
+		"0.3":8,
 		"0.5":12,
 		"1":16,
 		"2":20,

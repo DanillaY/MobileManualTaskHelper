@@ -2,15 +2,23 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet } from 'react-native';
 import { ThemeProvider } from '@shopify/restyle';
 import theme from './src/components/theme';
-import Navigation from './src/navigation';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AuthStack from 'src/navigation/AuthStack';
+
+const MainStack = createNativeStackNavigator()
 
 export default function App() {
+	
   return (
 	<ThemeProvider theme={theme}>
 		<SafeAreaProvider>
-			<Navigation/>
-			<StatusBar translucent/>
+			<NavigationContainer>
+				<MainStack.Navigator>
+					<MainStack.Screen name='Main' options={{headerShown:false}} component={AuthStack}/>
+				</MainStack.Navigator>
+			</NavigationContainer>
 		</SafeAreaProvider>
 	</ThemeProvider>
     

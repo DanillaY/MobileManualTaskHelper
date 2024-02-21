@@ -5,10 +5,12 @@ import theme, { Box, Text } from './theme'
 type InputProps = {
 	label : string
 	error?: undefined
+	onChangeText?: (arg:any) => void
 	shouldBeHidden?: boolean
 } & TextInputProps
 
-const Input = ({label,shouldBeHidden,error}:InputProps) => {
+
+const Input = ({label,shouldBeHidden,onChangeText,error}:InputProps) => {
   return (
 	<Box flexDirection='column'>
 	  <Text variant='text16' fontWeight='600' marginBottom='0.5'>{label}</Text>
@@ -22,7 +24,7 @@ const Input = ({label,shouldBeHidden,error}:InputProps) => {
 			fontSize: 16,
 			color: theme.colors.secondary
 			}
-		} placeholder={label}/>
+		} placeholder={label} onChangeText={(text) => onChangeText!(text)}/>
 	</Box>
   )
 }

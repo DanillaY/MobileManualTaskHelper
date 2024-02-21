@@ -1,6 +1,12 @@
 
 export const textVariants = {
 	defaults: {},
+	text13:{
+		fontSize: 13,
+		lineHeight: 20,
+		color: "primary_dark",
+		fontFamily: "sans-serif-medium",
+	},
 	text16:{
 		fontSize: 16,
 		lineHeight: 24,
@@ -28,6 +34,12 @@ export const textVariants = {
 	text36:{
 		fontSize: 36,
 		lineHeight: 40,
+		color: "primary_dark",
+		fontFamily: "sans-serif-medium",
+	},
+	text48:{
+		fontSize: 48,
+		lineHeight: 52,
 		color: "primary_dark",
 		fontFamily: "sans-serif-medium",
 	},
