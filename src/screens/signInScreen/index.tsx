@@ -8,12 +8,12 @@ import Button from 'src/components/button'
 import { Pressable } from 'react-native'
 import useUserStore, { UserType } from 'src/store/userStore';
 import { WelcomeNavigationType } from 'src/navigation/types';
+import { InitDatabase } from 'src/database/sqlite';
 
 
 const SignInScreen = () => {
 
 	const navigation = useNavigation<WelcomeNavigationType<"AuthSignInScreen">>()
-
 	const { ID, email,password,exist,setEmail,setPassword,setExist} = useUserStore((state) => state)
 
 	const CheckUser= (email:string,password:string) => {
@@ -21,7 +21,7 @@ const SignInScreen = () => {
 		db.transaction(tx => {
 			tx.executeSql("SELECT * FROM users WHERE email = ? AND password = ? LIMIT 1",[email,password],
 			(tx,res) => 
-			{ setExist(res.rows.length === 1); console.log(res.rows._array[0].id)})
+			{ setExist(res.rows.length === 1); console.log(res.rows._array)})
 		})
 	}
 
@@ -43,7 +43,10 @@ const SignInScreen = () => {
 						</Pressable>
 
 					<Box marginBottom='5'/>
-					<Button label='Авторизоваться' onPress={exist === true ? () => {navigation.navigate("AuthTabsScreen",{screen:"MeasureScreen", params:{userId:ID} })}: () =>{CheckUser(email,password);console.log(exist)}}/>
+					<Button label='Авторизоваться' onPress={
+						exist === true ?
+						() => {navigation.navigate("AuthTabsScreen",{screen:"MeasureScreen", params:{userId:ID} })}
+						:() => {CheckUser(email,password)}}/>
 				</Box>
 			</Box>
 		</SafeAreaWrapper>

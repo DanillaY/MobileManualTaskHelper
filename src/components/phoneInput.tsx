@@ -6,6 +6,8 @@ import usePhoneStore from "src/store/phoneStore"
 type InputProps = {
 	label : string
 	error?: undefined
+	onPhoneChange?: () => void
+	onCodeChange?: () => void
 } & TextInputProps
 
 const PhoneInput = ({label,error}:InputProps) => {
