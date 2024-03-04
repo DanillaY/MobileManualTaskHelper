@@ -17,6 +17,7 @@ type Action = {
 	setPassword: (pass:string) => void,
 	setPhone: (phone:string) => void,
 	setExist: (exist:boolean) => void,
+	setID: (id:number) => void,
 }
 
 type State = {

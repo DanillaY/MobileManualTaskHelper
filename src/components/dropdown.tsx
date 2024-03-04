@@ -7,17 +7,18 @@ import { Dimensions } from 'react-native'
 type DropdownProps = {
 	label: string
 	data: object[]
+	height?: number
 }
 
-const Dropdown = ({data,label}:DropdownProps) => {
+const Dropdown = ({data,label,height}:DropdownProps) => {
 	const {selected, setSelected} = useDropdownStore()
   return (
 	<Box flexDirection='column'>
 	  <Text variant='text16' marginBottom='0.5'>{label}</Text>
 	  <SelectList boxStyles={{
 			alignContent:'center',
-			paddingTop: Dimensions.get('window').height / 50,
-			height: Dimensions.get('window').height / 14,
+			paddingTop: Dimensions.get('window').height / 55,
+			height: Dimensions.get('window').height / 16,
 			borderRadius:theme.spacing[7],
 			borderWidth: 2,
 			borderColor: theme.colors.primary_dark,

@@ -8,7 +8,7 @@ type PhoneStore = {
 }
 
 const usePhoneStore = create<PhoneStore>((set,get) =>({
-	code:"12",
+	code:"",
 	phone:"",
 	onChangeCode(code: string) {
 		set(() => ({code:code}))

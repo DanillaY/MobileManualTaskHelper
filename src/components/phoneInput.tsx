@@ -6,11 +6,12 @@ import usePhoneStore from "src/store/phoneStore"
 type InputProps = {
 	label : string
 	error?: undefined
+	height?: number
 	onPhoneChange?: () => void
 	onCodeChange?: () => void
 } & TextInputProps
 
-const PhoneInput = ({label,error}:InputProps) => {
+const PhoneInput = ({label,height,error}:InputProps) => {
 
 	const onChangeCode = usePhoneStore((state) => state.onChangeCode)
 	const onChangePhone = usePhoneStore((state) => state.onChangePhone)
@@ -30,7 +31,7 @@ const PhoneInput = ({label,error}:InputProps) => {
 				color:theme.colors.secondary,
 				justifyContent:"center",
 				width: Dimensions.get('window').width / 6.5,
-				height : Dimensions.get('window').height / 16.8,
+				height: height ? height : 50,
 				borderWidth:1.75,
 			}
 		}/>
@@ -40,7 +41,8 @@ const PhoneInput = ({label,error}:InputProps) => {
 				paddingVertical:13,
 				padding: 23,
 				fontSize: 16,
-				color: theme.colors.secondary
+				color: theme.colors.secondary,
+				height: height ? height : 50,
 				}
 			} placeholder={label}/>
 	  </Box>

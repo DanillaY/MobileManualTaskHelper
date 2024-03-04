@@ -5,24 +5,28 @@ import { useNavigation } from '@react-navigation/native'
 import SafeAreaWrapper from '../../components/safeArea'
 import Input from 'src/components/input'
 import Button from 'src/components/button'
-import { Pressable } from 'react-native'
+import { InteractionManager, Pressable } from 'react-native'
 import useUserStore, { UserType } from 'src/store/userStore';
 import { WelcomeNavigationType } from 'src/navigation/types';
-import { InitDatabase } from 'src/database/sqlite';
+import { AUTH_PORT,AUTH_IP } from '@env';
+import axios from 'axios';
 
+interface CheckUserResponse {
+	exist:boolean
+	userId:number
+ }
 
 const SignInScreen = () => {
 
 	const navigation = useNavigation<WelcomeNavigationType<"AuthSignInScreen">>()
-	const { ID, email,password,exist,setEmail,setPassword,setExist} = useUserStore((state) => state)
+	const { ID, email,exist,password,setEmail,setPassword,setExist,setID} = useUserStore((state) => state)
 
-	const CheckUser= (email:string,password:string) => {
-		const db = SQLite.openDatabase('appUser.db')
-		db.transaction(tx => {
-			tx.executeSql("SELECT * FROM users WHERE email = ? AND password = ? LIMIT 1",[email,password],
-			(tx,res) => 
-			{ setExist(res.rows.length === 1); console.log(res.rows._array)})
-		})
+	const CheckUser = async (email:string,password:string) => {
+		const res = await axios.post("http://"+AUTH_IP+":"+AUTH_PORT+"/user/doesExist",
+		{ Email:email,Password:password,Gender:"",Phonenumber:""})
+		const json:CheckUserResponse = JSON.parse(JSON.stringify(res.data))
+		
+		return json
 	}
 
 	return (
@@ -43,10 +47,15 @@ const SignInScreen = () => {
 						</Pressable>
 
 					<Box marginBottom='5'/>
-					<Button label='Авторизоваться' onPress={
-						exist === true ?
-						() => {navigation.navigate("AuthTabsScreen",{screen:"MeasureScreen", params:{userId:ID} })}
-						:() => {CheckUser(email,password)}}/>
+					<Button label='Авторизоваться' onPress={() => 
+					{ 
+						CheckUser(email,password).then((res:CheckUserResponse) => {
+							 if(res.exist == true) {
+								window.userid = res.userId
+								navigation.navigate("AuthTabsScreen",{ screen:"PredictionScreen", params:{userId:res.userId}})
+							 }
+						}) 
+					}}/>
 				</Box>
 			</Box>
 		</SafeAreaWrapper>

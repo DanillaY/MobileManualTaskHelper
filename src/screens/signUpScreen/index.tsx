@@ -14,6 +14,8 @@ import useUserStore from 'src/store/userStore'
 import usePhoneStore from 'src/store/phoneStore'
 import useDropdownStore from 'src/store/dropdownStore'
 import { InitDatabase } from 'src/database/sqlite'
+import axios from 'axios'
+import { AUTH_IP, AUTH_PORT } from '@env'
 
 const SignUpScreen = () => {
 
@@ -27,19 +29,10 @@ const SignUpScreen = () => {
 		{key:"2",value:"Женский"},
 		{key:"3",value:"Другое"}]
 
-	const AddUser = (email:string,password:string,gender:string,phoneNumber:string) => {
-		const db = SQLite.openDatabase('appUser.db')
-		db.transaction(tx => {
-			tx.executeSql("CREATE TABLE IF NOT EXISTS timePeriods (id INTEGER,timePeriod	DATE,PRIMARY KEY(id AUTOINCREMENT));")
-			tx.executeSql("CREATE TABLE IF NOT EXISTS users (id	INTEGER UNIQUE,email	TEXT,gender	TEXT,password	TEXT,phoneNumber	TEXT,usersTimeperiodsID	INTEGER,PRIMARY KEY(id AUTOINCREMENT),FOREIGN KEY(usersTimeperiodsID) REFERENCES usersTimeperiods(id));")
-			tx.executeSql("CREATE TABLE IF NOT EXISTS usersTimeperiods (id	INTEGER,userID	INTEGER,timeperiodID	INTEGER,FOREIGN KEY(timeperiodID) REFERENCES timePeriods(id),FOREIGN KEY(userID) REFERENCES users(id),PRIMARY KEY(id AUTOINCREMENT));")
-			tx.executeSql("INSERT INTO users(email,gender,password,phoneNumber) VALUES(?,?,?,?)",
-			[email,gender,password,phoneNumber],
-			(tx,res) => 
-			{ 
-				navigation.navigate("AuthSignInScreen")
-			},(tx,err) => {console.log(err); return false})
-		})
+	const RegisterUser = async (email:string,password:string,gender:string,phone:string) => {
+		const res= await axios.post("http://"+AUTH_IP+":"+AUTH_PORT+"/user/createUser",
+		{ Email:email,Password:password,Gender:gender,Phonenumber:phone})
+		return Boolean(res.data)
 	}
 
   return (
@@ -49,12 +42,12 @@ const SignUpScreen = () => {
 				<Text variant='text16' fontWeight='500'>Впервые в приложении?</Text>
 				<Text variant='text20' fontWeight='700' marginBottom='5'>Зарегистрироваться</Text>
 				<Input label='Email' onChangeText={setEmail} value={email}></Input>
-				<Box marginBottom='5'/>
+				<Box marginBottom='3'/>
 					<Input label='Password' shouldBeHidden={true} onChangeText={setPassword} value={password}></Input>
-				<Box marginBottom='5'/>
+				<Box marginBottom='3'/>
 
 				<PhoneInput label='Phone'/>
-				<Box marginBottom='5'/>
+				<Box marginBottom='3'/>
 
 				<Dropdown label='Gender' data={genders}/>
 				<Box marginBottom='2'/>
@@ -63,7 +56,11 @@ const SignUpScreen = () => {
 					<Text textAlign='right' paddingRight='1' color='primary_dark'>Уже есть аккаунт?</Text>
 				</Pressable>
 				<Box marginBottom='5'/>
-				<Button label='Зарегистрироваться' onPress={() => AddUser(email,password, selected, code + phone)}/>
+				
+				<Button label='Зарегистрироваться' onPress={
+					() => RegisterUser(email,password, selected, code + phone)
+					.then(() => navigation.navigate("AuthSignInScreen"))}
+				/>
 			</Box>
 		</Box>
 	</SafeAreaWrapper>

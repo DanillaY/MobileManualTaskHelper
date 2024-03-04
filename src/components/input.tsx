@@ -5,17 +5,19 @@ import theme, { Box, Text } from './theme'
 type InputProps = {
 	label : string
 	error?: undefined
+	height?: number,
 	onChangeText?: (arg:any) => void
 	shouldBeHidden?: boolean
 } & TextInputProps
 
 
-const Input = ({label,shouldBeHidden,onChangeText,error}:InputProps) => {
+const Input = ({label,shouldBeHidden,onChangeText,height,error}:InputProps) => {
   return (
 	<Box flexDirection='column'>
 	  <Text variant='text16' fontWeight='600' marginBottom='0.5'>{label}</Text>
-	  <TextInput secureTextEntry={shouldBeHidden ? true : false} style={
+	  <TextInput  secureTextEntry={shouldBeHidden ? true : false} style={
 		{
+			height: height ? height : 55,
 			paddingVertical:13,
 			borderWidth: 2,
 			borderColor: theme.colors.primary_dark,

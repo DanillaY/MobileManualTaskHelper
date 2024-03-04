@@ -20,9 +20,3 @@ export const InitDatabase = () => {
 	},
 	() => console.log("Database has been initialized"))
 }
-/*
-SELECT users.email, timePeriods.timePeriod
-FROM users
-INNER JOIN usersTimeperiods ON usersTimeperiods.userID = users.id
-INNER JOIN timePeriods ON usersTimeperiods.timeperiodID = timePeriods.id 
-*/
