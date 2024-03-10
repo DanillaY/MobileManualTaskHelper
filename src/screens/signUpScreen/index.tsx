@@ -13,7 +13,6 @@ import { WelcomeNavigationType } from 'src/navigation/types'
 import useUserStore from 'src/store/userStore'
 import usePhoneStore from 'src/store/phoneStore'
 import useDropdownStore from 'src/store/dropdownStore'
-import { InitDatabase } from 'src/database/sqlite'
 import axios from 'axios'
 import { AUTH_IP, AUTH_PORT } from '@env'
 
